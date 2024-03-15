@@ -4,51 +4,92 @@ import { reportSonarArray } from "../../storeManager.js";
 import CardReport from "../components/CardReport.vue";
 import SearchBar from "../components/SearchBar.vue";
 let searchInput = ref("");
+// VARIABILI REATTIVE PER IL FILTRAGGIO DEI REPORTS NEL DOM 
 let highRiskReports = ref(false);
 let spoofableEmails = ref(false);
+let cdnDetectedReports = ref(false);
+let domainsWithCritProblemsReports = ref(false);
+
 // ARRAY DELLO STORE MANAGER CONTENENTE IL JSON CON TUTTI I REPORT DELLA SONDA :
 const originalReportSonarArray = reportSonarArray.results;
 
 // SISTEMA DI RICERCA PER NOME DEL SINGOLO REPORT:
 
-console.log(searchInput.value);
-
 function handleSerchBarChange(input) {
   highRiskReports.value = false;
   spoofableEmails.value = false;
+  cdnDetectedReports.value = false;
+  domainsWithCritProblemsReports.value = false;
   searchInput.value = input.trim().toLowerCase();
   console.log(searchInput.value);
-  if (!searchInput.value) {
-    reportSonarArray.results = originalReportSonarArray;
-  } else {
+  if (searchInput.value) {
     reportSonarArray.results = originalReportSonarArray.filter((report) =>
       report.domain_name.toLowerCase().includes(searchInput.value)
     );
   }
+  else {
+    reportSonarArray.results = originalReportSonarArray
+  }
+
 }
 
+// SISTEMA DI RICERCA PER CATEGORIA E LOGICA DI RESET QUANDO UNA CATEGORIA E' GIA' SELEZIONATA:
+
 function showHighRiskReports() {
-  searchInput.value = '';
   spoofableEmails.value = false;
+  cdnDetectedReports.value = false;
+  domainsWithCritProblemsReports.value = false;
   highRiskReports.value = !highRiskReports.value;
   console.log(highRiskReports.value);
   if (highRiskReports.value) {
     reportSonarArray.results = originalReportSonarArray.filter(
       (report) => report.risk_score > 79
     );
+  }else {
+    reportSonarArray.results = originalReportSonarArray;
+  }
+
+}
+
+function showSpoofableEmailsReports() {
+  highRiskReports.value = false;
+  cdnDetectedReports.value = false;
+  domainsWithCritProblemsReports.value = false;
+  spoofableEmails.value = !spoofableEmails.value;
+  console.log(spoofableEmails.value);
+  if (spoofableEmails.value) {
+    reportSonarArray.results = originalReportSonarArray.filter(
+      (report) => report.email_security.spoofable === 'Spoofing possible.'
+    );
   } else {
     reportSonarArray.results = originalReportSonarArray;
   }
 }
 
-function showSpoofableEmailsReports() {
-  searchInput.value = '';
+function showCdnDetectedReports() {
   highRiskReports.value = false;
-  spoofableEmails.value = !spoofableEmails.value;
-  console.log(!spoofableEmails.value);
-  if (spoofableEmails.value) {
+  spoofableEmails.value = false;
+  domainsWithCritProblemsReports.value = false;
+  cdnDetectedReports.value = !cdnDetectedReports.value
+  console.log(cdnDetectedReports.value);
+  if (cdnDetectedReports.value) {
     reportSonarArray.results = originalReportSonarArray.filter(
-      (report) => report.email_security.spoofable === 'Spoofing possible.'
+      (report) => report.cdn.count > 0
+    );
+  } else {
+    reportSonarArray.results = originalReportSonarArray;
+  }
+}
+
+function showDomainsWithCritProblems() {
+  highRiskReports.value = false;
+  spoofableEmails.value = false;
+  cdnDetectedReports.value = false
+  domainsWithCritProblemsReports.value = !domainsWithCritProblemsReports.value
+  console.log(domainsWithCritProblemsReports.value);
+  if (domainsWithCritProblemsReports) {
+    reportSonarArray.results = originalReportSonarArray.filter(
+      (report) => report.n_vulns.total.critical > 0
     );
   } else {
     reportSonarArray.results = originalReportSonarArray;
@@ -71,22 +112,22 @@ function showSpoofableEmailsReports() {
     <section class="sorting_system">
       <div class="container">
         <div class="row">
-          <div @click.prevent="showHighRiskReports" class="col-3" :class="highRiskReports.value ? 'active' : ''">
+          <div @click="showHighRiskReports" class="col-3" :class="{ active: highRiskReports }">
             <span>High Risk Domains ( > 80 Score)</span>
           </div>
-          <div @click.prevent="showSpoofableEmailsReports" class="col-3">
+          <div @click="showSpoofableEmailsReports" class="col-3" :class="{ active: spoofableEmails }">
             <span>Spoofable Email Domains</span>
           </div>
-          <div class="col-3">
+          <div @click="showCdnDetectedReports" class="col-3" :class="{ active: cdnDetectedReports }">
             <span>CDN Detected Domains</span>
           </div>
-          <div class="col-3">
-            <span>CDN With Critical Vulnerabilities</span>
+          <div  @click="showDomainsWithCritProblems" :class="{ active: domainsWithCritProblemsReports }" class="col-3">
+            <span>Domains With Critical Problems</span>
           </div>
         </div>
       </div>
     </section>
-    <h3 class="usability_instruction_title">
+    <h3 v-if="reportSonarArray.results.length > 0" class="usability_instruction_title">
       Click on the single report to get the Detail Page
     </h3>
     <section class="reports_section">
@@ -96,6 +137,9 @@ function showSpoofableEmailsReports() {
         :key="index"
         :report="report"
       />
+      <div v-if="reportSonarArray.results.length === 0" class="alert">
+        Any Report Found 
+      </div>
     </section>
   </main>
 </template>
@@ -182,5 +226,13 @@ function showSpoofableEmailsReports() {
 
 .active {
   background-color: #00fe00;
+  color: black;
+  font-weight: 700;
+}
+
+.alert {
+  color: red;
+  font-size: 30px;
+  font-weight: bold;
 }
 </style>

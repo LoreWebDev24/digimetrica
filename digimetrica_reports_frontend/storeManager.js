@@ -298,7 +298,7 @@ export const reportSonarArray = reactive({
             },
             "n_vulns": {
               "total": {
-                "critical": 1,
+                "critical": 0,
                 "high": 13,
                 "medium": 35,
                 "low": 0,
@@ -405,7 +405,7 @@ export const reportSonarArray = reactive({
             },
             "n_vulns": {
               "total": {
-                "critical": 1,
+                "critical": 0,
                 "high": 13,
                 "medium": 35,
                 "low": 0,
@@ -619,7 +619,7 @@ export const reportSonarArray = reactive({
             },
             "n_vulns": {
               "total": {
-                "critical": 1,
+                "critical": 0,
                 "high": 13,
                 "medium": 35,
                 "low": 0,
@@ -726,7 +726,7 @@ export const reportSonarArray = reactive({
             },
             "n_vulns": {
               "total": {
-                "critical": 1,
+                "critical": 3,
                 "high": 13,
                 "medium": 35,
                 "low": 0,
@@ -833,7 +833,7 @@ export const reportSonarArray = reactive({
             },
             "n_vulns": {
               "total": {
-                "critical": 1,
+                "critical": 0,
                 "high": 13,
                 "medium": 35,
                 "low": 0,
@@ -940,7 +940,7 @@ export const reportSonarArray = reactive({
             },
             "n_vulns": {
               "total": {
-                "critical": 1,
+                "critical": 0,
                 "high": 13,
                 "medium": 35,
                 "low": 0,
@@ -1047,7 +1047,7 @@ export const reportSonarArray = reactive({
             },
             "n_vulns": {
               "total": {
-                "critical": 1,
+                "critical": 2,
                 "high": 13,
                 "medium": 35,
                 "low": 0,
