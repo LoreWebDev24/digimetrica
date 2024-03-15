@@ -37,7 +37,7 @@ body {
   background-color: #000d17;
   color: white;
   min-width: 324px;
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 
 .page_header {
@@ -61,6 +61,10 @@ main {
 
 .col-3 {
   flex-basis: calc((100% / 12) * 3);
+}
+
+.col-4 {
+  flex-basis: calc((100% / 12) * 4);
 }
 
 .col-6 {
