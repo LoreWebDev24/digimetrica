@@ -49,6 +49,7 @@ function handleSerchBarChange(input) {
         </div>
       </div>
     </section>
+    <h3 class="usability_instruction_title">Click on the single report to get the Detail Page</h3>
     <section class="reports_section">
       <CardReport
         class="report"
@@ -113,6 +114,11 @@ function handleSerchBarChange(input) {
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
+}
+
+.usability_instruction_title {
+  text-align: center;
+  padding-top: 40px;
 }
 
 .sorting_system {

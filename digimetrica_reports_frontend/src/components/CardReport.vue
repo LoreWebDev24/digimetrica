@@ -110,4 +110,16 @@ li span:first-child {
   border-radius: 1rem;
   background-color: #1a2032;
 }
+
+.report:hover {
+  background-color: #00C297;
+  color: black;
+  cursor: pointer;
+  border: 1px solid #1a2032;
+}
+
+.report:hover li span:first-child {
+  color: black;
+  font-weight: bold;
+}
 </style>
