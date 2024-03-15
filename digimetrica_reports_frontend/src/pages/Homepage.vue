@@ -3,14 +3,21 @@ import { computed, ref, watch } from "vue";
 import { reportSonarArray } from "../../storeManager.js";
 import CardReport from "../components/CardReport.vue";
 import SearchBar from "../components/SearchBar.vue";
-const searchInput = ref("");
+let searchInput = ref("");
+let highRiskReports = ref(false);
+let spoofableEmails = ref(false);
 // ARRAY DELLO STORE MANAGER CONTENENTE IL JSON CON TUTTI I REPORT DELLA SONDA :
 const originalReportSonarArray = reportSonarArray.results;
 
 // SISTEMA DI RICERCA PER NOME DEL SINGOLO REPORT:
 
+console.log(searchInput.value);
+
 function handleSerchBarChange(input) {
+  highRiskReports.value = false;
+  spoofableEmails.value = false;
   searchInput.value = input.trim().toLowerCase();
+  console.log(searchInput.value);
   if (!searchInput.value) {
     reportSonarArray.results = originalReportSonarArray;
   } else {
@@ -19,6 +26,36 @@ function handleSerchBarChange(input) {
     );
   }
 }
+
+function showHighRiskReports() {
+  searchInput.value = '';
+  spoofableEmails.value = false;
+  highRiskReports.value = !highRiskReports.value;
+  console.log(highRiskReports.value);
+  if (highRiskReports.value) {
+    reportSonarArray.results = originalReportSonarArray.filter(
+      (report) => report.risk_score > 79
+    );
+  } else {
+    reportSonarArray.results = originalReportSonarArray;
+  }
+}
+
+function showSpoofableEmailsReports() {
+  searchInput.value = '';
+  highRiskReports.value = false;
+  spoofableEmails.value = !spoofableEmails.value;
+  console.log(!spoofableEmails.value);
+  if (spoofableEmails.value) {
+    reportSonarArray.results = originalReportSonarArray.filter(
+      (report) => report.email_security.spoofable === 'Spoofing possible.'
+    );
+  } else {
+    reportSonarArray.results = originalReportSonarArray;
+  }
+}
+
+
 </script>
 
 <template>
@@ -34,10 +71,10 @@ function handleSerchBarChange(input) {
     <section class="sorting_system">
       <div class="container">
         <div class="row">
-          <div class="col-3">
+          <div @click.prevent="showHighRiskReports" class="col-3" :class="highRiskReports.value ? 'active' : ''">
             <span>High Risk Domains ( > 80 Score)</span>
           </div>
-          <div class="col-3">
+          <div @click.prevent="showSpoofableEmailsReports" class="col-3">
             <span>Spoofable Email Domains</span>
           </div>
           <div class="col-3">
@@ -49,7 +86,9 @@ function handleSerchBarChange(input) {
         </div>
       </div>
     </section>
-    <h3 class="usability_instruction_title">Click on the single report to get the Detail Page</h3>
+    <h3 class="usability_instruction_title">
+      Click on the single report to get the Detail Page
+    </h3>
     <section class="reports_section">
       <CardReport
         class="report"
@@ -139,5 +178,9 @@ function handleSerchBarChange(input) {
   background-color: #00fe00;
   color: black;
   font-weight: 700;
+}
+
+.active {
+  background-color: #00fe00;
 }
 </style>

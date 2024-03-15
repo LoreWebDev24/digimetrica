@@ -266,7 +266,7 @@ export const reportSonarArray = reactive({
             "n_asset": 102,
             "n_similar_domains": 13,
             "email_security": {
-              "spoofable": "Spoofing not likely.",
+              "spoofable": "Spoofing possible.",
               "dmarc_policy": "none",
               "blacklist_detections": 4,
               "blacklist_total_list": 60,
@@ -587,7 +587,7 @@ export const reportSonarArray = reactive({
             "n_asset": 102,
             "n_similar_domains": 13,
             "email_security": {
-              "spoofable": "Spoofing not likely.",
+              "spoofable": "Spoofing possible.",
               "dmarc_policy": "none",
               "blacklist_detections": 4,
               "blacklist_total_list": 60,
