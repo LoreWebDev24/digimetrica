@@ -1,8 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Homepage from "./pages/Homepage.vue";
 import ReportDetail from "./pages/ReportDetail.vue"
-
-
+import { reportSonarArray } from "../storeManager";
 
 
 const router = createRouter({
@@ -15,7 +14,15 @@ const router = createRouter({
 		},
 		{
 			path: "/ReportDetail/:slug",
-			props: true,
+			props: function (route)  {
+				const report = reportSonarArray.results.filter(
+				(report) => report.domain_name === route.params.slug
+				)
+				return {
+					slug: route.params.slug,
+					report: report
+				}
+			},
 			name: "ReportDetail",
 			component: ReportDetail,
 		}

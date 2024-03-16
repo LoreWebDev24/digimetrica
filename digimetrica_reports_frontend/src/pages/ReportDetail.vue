@@ -1,11 +1,20 @@
 <script setup>
+import { onMounted, ref } from "vue";
+import { useRouter } from "vue-router";
+import { defineProps } from 'vue';
 
+const  props  = defineProps(["slug","report"]);
+
+
+onMounted(() => {
+
+})  
 
 </script>
 
 <template>
 <div>
-<h2>Esempio di Report Detail Temporaneo</h2>
+<h4>{{ props }}</h4>
 </div>
 </template>
 

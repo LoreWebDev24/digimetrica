@@ -6,12 +6,13 @@ import CardReport from "../components/CardReport.vue";
 import SearchBar from "../components/SearchBar.vue";
 import { useRouter } from "vue-router";
 const router = useRouter();
-// VARIABILI REATTIVE PER IL FILTRAGGIO DEI REPORTS NEL DOM 
+import ReportDetail from "./ReportDetail.vue";
+
+// VARIABILI REATTIVE PER IL FILTRAGGIO DEI REPORTS NEL DOM
 let highRiskReports = ref(false);
 let spoofableEmails = ref(false);
 let cdnDetectedReports = ref(false);
 let domainsWithCritProblemsReports = ref(false);
-
 
 // ARRAY DELLO STORE MANAGER CONTENENTE IL JSON CON TUTTI I REPORT DELLA SONDA :
 const originalReportSonarArray = reportSonarArray.results;
@@ -20,31 +21,28 @@ const originalReportSonarArray = reportSonarArray.results;
 
 function handleSearchBarChange(input) {
   console.log(input.value);
-  state.inputValue = input.value
-  console.log(state.inputValue)
+  state.inputValue = input.value;
+  console.log(state.inputValue);
   highRiskReports.value = false;
   spoofableEmails.value = false;
   cdnDetectedReports.value = false;
   domainsWithCritProblemsReports.value = false;
   state.inputValue = input.value.trim().toLowerCase();
-  
+
   if (state.inputValue) {
     reportSonarArray.results = originalReportSonarArray.filter((report) =>
       report.domain_name.toLowerCase().includes(state.inputValue)
     );
-    console.log(state.inputValue)
+    console.log(state.inputValue);
+  } else {
+    reportSonarArray.results = originalReportSonarArray;
   }
-  else {
-    reportSonarArray.results = originalReportSonarArray
-  }
-
 }
-
 
 // SISTEMA DI RICERCA PER CATEGORIA E LOGICA DI RESET QUANDO UNA CATEGORIA E' GIA' SELEZIONATA:
 
 function showHighRiskReports() {
-  state.inputValue = '';
+  state.inputValue = "";
   spoofableEmails.value = false;
   cdnDetectedReports.value = false;
   domainsWithCritProblemsReports.value = false;
@@ -54,14 +52,13 @@ function showHighRiskReports() {
     reportSonarArray.results = originalReportSonarArray.filter(
       (report) => report.risk_score > 79
     );
-  }else {
+  } else {
     reportSonarArray.results = originalReportSonarArray;
   }
-
 }
 
 function showSpoofableEmailsReports() {
-  state.inputValue = '';
+  state.inputValue = "";
   highRiskReports.value = false;
   cdnDetectedReports.value = false;
   domainsWithCritProblemsReports.value = false;
@@ -69,7 +66,7 @@ function showSpoofableEmailsReports() {
   console.log(spoofableEmails.value);
   if (spoofableEmails.value) {
     reportSonarArray.results = originalReportSonarArray.filter(
-      (report) => report.email_security.spoofable === 'Spoofing possible.'
+      (report) => report.email_security.spoofable === "Spoofing possible."
     );
   } else {
     reportSonarArray.results = originalReportSonarArray;
@@ -77,11 +74,11 @@ function showSpoofableEmailsReports() {
 }
 
 function showCdnDetectedReports() {
-  state.inputValue = '';
+  state.inputValue = "";
   highRiskReports.value = false;
   spoofableEmails.value = false;
   domainsWithCritProblemsReports.value = false;
-  cdnDetectedReports.value = !cdnDetectedReports.value
+  cdnDetectedReports.value = !cdnDetectedReports.value;
   console.log(cdnDetectedReports.value);
   if (cdnDetectedReports.value) {
     reportSonarArray.results = originalReportSonarArray.filter(
@@ -93,11 +90,11 @@ function showCdnDetectedReports() {
 }
 
 function showDomainsWithCritProblems() {
-  state.inputValue = '';
+  state.inputValue = "";
   highRiskReports.value = false;
   spoofableEmails.value = false;
-  cdnDetectedReports.value = false
-  domainsWithCritProblemsReports.value = !domainsWithCritProblemsReports.value
+  cdnDetectedReports.value = false;
+  domainsWithCritProblemsReports.value = !domainsWithCritProblemsReports.value;
   console.log(domainsWithCritProblemsReports.value);
   if (domainsWithCritProblemsReports) {
     reportSonarArray.results = originalReportSonarArray.filter(
@@ -108,15 +105,15 @@ function showDomainsWithCritProblems() {
   }
 }
 
-// ROUTER PUSH ALLA PAGINA DI DETAIL UNA VOLTA CLICCATO IL SINGOLO REPORT 
+// ROUTER PUSH ALLA PAGINA DI DETAIL UNA VOLTA CLICCATO IL SINGOLO REPORT
 
 function fetchReportDetail(report) {
   router.push({
     name: "ReportDetail",
-    params: { slug: encodeURIComponent(report.domain_name) },
+    params: { slug: encodeURIComponent(report.domain_name)},
+    
   });
 }
-
 </script>
 
 <template>
@@ -132,34 +129,53 @@ function fetchReportDetail(report) {
     <section class="sorting_system">
       <div class="container">
         <div class="row">
-          <div @click="showHighRiskReports" class="col-3" :class="{ active: highRiskReports }">
+          <div
+            @click="showHighRiskReports"
+            class="col-3"
+            :class="{ active: highRiskReports }"
+          >
             <span>High Risk Domains ( > 80 Score)</span>
           </div>
-          <div @click="showSpoofableEmailsReports" class="col-3" :class="{ active: spoofableEmails }">
+          <div
+            @click="showSpoofableEmailsReports"
+            class="col-3"
+            :class="{ active: spoofableEmails }"
+          >
             <span>Spoofable Email Domains</span>
           </div>
-          <div @click="showCdnDetectedReports" class="col-3" :class="{ active: cdnDetectedReports }">
+          <div
+            @click="showCdnDetectedReports"
+            class="col-3"
+            :class="{ active: cdnDetectedReports }"
+          >
             <span>CDN Detected Domains</span>
           </div>
-          <div  @click="showDomainsWithCritProblems" :class="{ active: domainsWithCritProblemsReports }" class="col-3">
+          <div
+            @click="showDomainsWithCritProblems"
+            :class="{ active: domainsWithCritProblemsReports }"
+            class="col-3"
+          >
             <span>Domains With Critical Problems</span>
           </div>
         </div>
       </div>
     </section>
-    <h3 v-if="reportSonarArray.results.length > 0" class="usability_instruction_title">
+    <h3
+      v-if="reportSonarArray.results.length > 0"
+      class="usability_instruction_title"
+    >
       Click on the single report to get the Detail Page
     </h3>
     <section class="reports_section">
       <CardReport
-      @click="fetchReportDetail(report)"
+        @click="fetchReportDetail(report)"
         class="report"
         v-for="(report, index) in reportSonarArray.results"
         :key="index"
         :report="report"
       />
       <div v-if="reportSonarArray.results.length === 0" class="alert">
-        No Report Found 
+        No Report Found
       </div>
     </section>
   </main>
