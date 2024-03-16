@@ -5,7 +5,15 @@ import { defineProps } from "vue";
 
 const props = defineProps(["slug", "report"]);
 
-console.log(props.report[0]);
+function scrollTop() {
+	window.scrollTo(0, 0);
+}
+
+onMounted(() => {
+    scrollTop()
+})
+
+
 
 // FUNZIONE PER GENERARE UN TEMPO DI ESECUZIONE DI UN' IPOTETICA SCANSIONE DELLA RETE:
 
@@ -104,8 +112,7 @@ function generateRandomName() {
 
 <style scoped>
 .risk_level_wrapper {
-    height: 100%;
-  
+  height: 100%;
 }
 
 .risk_level_wrapper strong {
@@ -150,6 +157,10 @@ span {
 }
 
 .bg-green {
-    background-color: green;
+  background-color: green;
+}
+
+.bg-yellow {
+  background-color: gold;
 }
 </style>

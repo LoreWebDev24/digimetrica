@@ -1,4 +1,9 @@
 <script setup>
+import { router } from '../router';
+
+function backToHome () {
+  router.push('/');
+}
 
 </script>
 
@@ -6,7 +11,7 @@
 <div class="page_header">
   <div class="row">
     <div class="col-3">
-      <img src="/digimetrica_logo.png" alt="logo_digimetrica">
+      <img @click="backToHome" src="/digimetrica_logo.png" alt="logo_digimetrica">
     </div>
     <div class="col-6">
       <span>Digimetrica Reports Tool</span>
