@@ -15,7 +15,7 @@ const originalReportSonarArray = reportSonarArray.results;
 
 // SISTEMA DI RICERCA PER NOME DEL SINGOLO REPORT:
 
-function handleSerchBarChange(input) {
+function handleSearchBarChange(input) {
   highRiskReports.value = false;
   spoofableEmails.value = false;
   cdnDetectedReports.value = false;
@@ -33,9 +33,11 @@ function handleSerchBarChange(input) {
 
 }
 
+
 // SISTEMA DI RICERCA PER CATEGORIA E LOGICA DI RESET QUANDO UNA CATEGORIA E' GIA' SELEZIONATA:
 
 function showHighRiskReports() {
+  searchInput.value = '';
   spoofableEmails.value = false;
   cdnDetectedReports.value = false;
   domainsWithCritProblemsReports.value = false;
@@ -52,6 +54,7 @@ function showHighRiskReports() {
 }
 
 function showSpoofableEmailsReports() {
+  searchInput.value = '';
   highRiskReports.value = false;
   cdnDetectedReports.value = false;
   domainsWithCritProblemsReports.value = false;
@@ -67,6 +70,7 @@ function showSpoofableEmailsReports() {
 }
 
 function showCdnDetectedReports() {
+  searchInput.value = '';
   highRiskReports.value = false;
   spoofableEmails.value = false;
   domainsWithCritProblemsReports.value = false;
@@ -82,6 +86,7 @@ function showCdnDetectedReports() {
 }
 
 function showDomainsWithCritProblems() {
+  searchInput.value = '';
   highRiskReports.value = false;
   spoofableEmails.value = false;
   cdnDetectedReports.value = false
@@ -102,7 +107,7 @@ function showDomainsWithCritProblems() {
 <template>
   <main>
     <div class="search_bar_and_sort_wrapper d-flex mw-400 m-auto">
-      <SearchBar @onSearchChange="handleSerchBarChange" />
+      <SearchBar @on-search-change="handleSearchBarChange" />
       <select name="sorting_select" id="sorting_select">
         <option value="">Sort By</option>
         <option value="Default">Default</option>
@@ -138,7 +143,7 @@ function showDomainsWithCritProblems() {
         :report="report"
       />
       <div v-if="reportSonarArray.results.length === 0" class="alert">
-        Any Report Found 
+        No Report Found 
       </div>
     </section>
   </main>

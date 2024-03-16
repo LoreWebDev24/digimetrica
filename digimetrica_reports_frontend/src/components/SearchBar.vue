@@ -6,7 +6,7 @@ const instance = getCurrentInstance();
 const inputValue = ref('');
 
 const onChange = () => {
-  instance.emit('onSearchChange', inputValue.value);
+  instance.emit('on-search-change', inputValue.value);
 }
 
 </script>
