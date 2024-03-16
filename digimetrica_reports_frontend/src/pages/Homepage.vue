@@ -4,6 +4,8 @@ import { reportSonarArray } from "../../storeManager.js";
 import { state } from "../../storeManager.js";
 import CardReport from "../components/CardReport.vue";
 import SearchBar from "../components/SearchBar.vue";
+import { useRouter } from "vue-router";
+const router = useRouter();
 // VARIABILI REATTIVE PER IL FILTRAGGIO DEI REPORTS NEL DOM 
 let highRiskReports = ref(false);
 let spoofableEmails = ref(false);
@@ -105,6 +107,12 @@ function showDomainsWithCritProblems() {
     reportSonarArray.results = originalReportSonarArray;
   }
 }
+function fetchReportDetail() {
+  router.push({
+    name: "ReportDetail",
+    // params: { slug: encodeURIComponent() },
+  });
+}
 
 
 </script>
@@ -142,6 +150,7 @@ function showDomainsWithCritProblems() {
     </h3>
     <section class="reports_section">
       <CardReport
+      @click="fetchReportDetail"
         class="report"
         v-for="(report, index) in reportSonarArray.results"
         :key="index"
