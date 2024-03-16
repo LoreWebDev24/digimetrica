@@ -14,7 +14,7 @@ const router = createRouter({
 			component: Homepage,
 		},
 		{
-			path: "/ReportDetail",
+			path: "/ReportDetail/:slug",
 			props: true,
 			name: "ReportDetail",
 			component: ReportDetail,

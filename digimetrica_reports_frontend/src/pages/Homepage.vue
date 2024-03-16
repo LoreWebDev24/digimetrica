@@ -107,13 +107,15 @@ function showDomainsWithCritProblems() {
     reportSonarArray.results = originalReportSonarArray;
   }
 }
-function fetchReportDetail() {
+
+// ROUTER PUSH ALLA PAGINA DI DETAIL UNA VOLTA CLICCATO IL SINGOLO REPORT 
+
+function fetchReportDetail(report) {
   router.push({
     name: "ReportDetail",
-    // params: { slug: encodeURIComponent() },
+    params: { slug: encodeURIComponent(report.domain_name) },
   });
 }
-
 
 </script>
 
@@ -150,7 +152,7 @@ function fetchReportDetail() {
     </h3>
     <section class="reports_section">
       <CardReport
-      @click="fetchReportDetail"
+      @click="fetchReportDetail(report)"
         class="report"
         v-for="(report, index) in reportSonarArray.results"
         :key="index"
@@ -240,7 +242,6 @@ function fetchReportDetail() {
   cursor: pointer;
   background-color: #00fe00;
   color: black;
-  font-weight: 700;
 }
 
 .active {
