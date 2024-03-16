@@ -9,8 +9,12 @@ let isClickedPortsExposure = ref(false);
 let isClickedEmailInfos = ref(false);
 const chartRef = ref(null);
 const chartRefTotalVulns = ref(null);
- 
 
+// PRENDO LE PROPS DAL ROUTER OVVERO LO SLUG ED IL SINGOLO REPORT : 
+ 
+const props = defineProps(["slug", "report"]);
+
+// CREO I CANVAS CONTENENTI I GRAFICI CON I DATI DINAMICI DEL SINGOLO REPORT :
 
 const createChart = () => {
   if (!chartRef.value) return;
@@ -47,7 +51,7 @@ const createChartTotalVulns = () => {
     labels: ['Critical Vulns', 'High Vulns', 'Medium Vulns', 'Low Vulns', 'Info'],
     datasets: [{
       label: 'Total Domain Vulnerabilities',
-      data: [65, 59, 80, 81, 56, 55, 40],
+      data: [props.report[0].n_vulns.total.critical, props.report[0].n_vulns.total.high, props.report[0].n_vulns.total.medium, props.report[0].n_vulns.total.low, props.report[0].n_vulns.total.info],
       backgroundColor: [
         'rgb(255, 99, 132)',
         'rgb(54, 162, 235)',
@@ -69,9 +73,6 @@ const createChartTotalVulns = () => {
     options: options
   });
 };
-
-
-const props = defineProps(["slug", "report"]);
 
 function scrollTop() {
   window.scrollTo(0, 0);
@@ -146,14 +147,13 @@ function generateRandomName() {
   return `${randomName} ${randomSurname}`;
 }
 
-// FUNZIONE PER FORMATTARE IL TESTO DEI  SUMMARYS : 
+// FUNZIONE PER FORMATTARE IL TESTO DEI  SUMMARY : 
 
 function formattText(text) {
   text = text.replace(/\*/g, '');
   
   return text;
 }
-
 
 </script>
 

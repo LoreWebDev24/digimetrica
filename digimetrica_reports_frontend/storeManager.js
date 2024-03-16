@@ -121,36 +121,36 @@ export const reportSonarArray = reactive({
       "idsummary": "e2e93402-37f3-4952-b910-143fd1980258",
       "domain_name": "example1.demo",
       "risk_score": 93,
-      "servizi_esposti_score": 99,
-      "dataleak_score": 100,
-      "rapporto_leak_email_score": 50,
-      "spoofing_score": 50,
-      "open_ports_score": 1,
-      "blacklist_score": 70,
-      "vulnerability_score_active": 54,
-      "vulnerability_score_passive": 99,
-      "certificate_score": 61,
+      "servizi_esposti_score": 70,
+      "dataleak_score": 60,
+      "rapporto_leak_email_score": 30,
+      "spoofing_score": 20,
+      "open_ports_score": 3,
+      "blacklist_score": 40,
+      "vulnerability_score_active": 70,
+      "vulnerability_score_passive": 37,
+      "certificate_score": 58,
       "n_port": {
         "53": {
-          "n": 3
+          "n": 4
         },
         "80": {
-          "n": 68
+          "n": 90
         },
         "443": {
-          "n": 42
+          "n": 12
         },
         "6667": {
           "n": 9
         },
         "6697": {
-          "n": 9
+          "n": 7
         },
         "8080": {
-          "n": 6
+          "n": 1
         },
         "8800": {
-          "n": 21
+          "n": 56
         }
       },
       "n_cert_attivi": 15,
@@ -166,11 +166,11 @@ export const reportSonarArray = reactive({
       },
       "n_dataleak": {
         "total": {
-          "vip": 0,
-          "domain_stealer": 1,
-          "potential_stealer": 977,
-          "other_stealer": 11,
-          "general_leak": 0
+          "vip": 4,
+          "domain_stealer": 2,
+          "potential_stealer": 120,
+          "other_stealer": 12,
+          "general_leak": 7
         },
         "resolved": {
           "vip": 0,
@@ -190,11 +190,11 @@ export const reportSonarArray = reactive({
       },
       "n_vulns": {
         "total": {
-          "critical": 1,
-          "high": 13,
+          "critical": 5,
+          "high": 12,
           "medium": 35,
-          "low": 0,
-          "info": 66
+          "low": 7,
+          "info": 1
         },
         "active": {
           "critical": 2,
@@ -988,116 +988,7 @@ export const reportSonarArray = reactive({
       "summary_text_en": "**Executive Summary of Vulnerability for \"example8.demo\"**\n\nThe domain \"example8.demo\" currently has a varied security situation...",
       "creation_date": "2024-03-07 18:08:41",
       "last_edit": "2024-03-08 14:09:44",
-    },
-    {
-      "idsummary": "25911d6e-2d87-442e-8a9f-960c493a94ff",
-      "domain_name": "example9.demo",
-      "risk_score": 71,
-      "servizi_esposti_score": 99,
-      "dataleak_score": 100,
-      "rapporto_leak_email_score": 50,
-      "spoofing_score": 50,
-      "open_ports_score": 1,
-      "blacklist_score": 70,
-      "vulnerability_score_active": 54,
-      "vulnerability_score_passive": 99,
-      "certificate_score": 61,
-      "n_port": {
-        "53": {
-          "n": 3
-        },
-        "80": {
-          "n": 68
-        },
-        "443": {
-          "n": 42
-        },
-        "6667": {
-          "n": 9
-        },
-        "6697": {
-          "n": 9
-        },
-        "8080": {
-          "n": 6
-        },
-        "8800": {
-          "n": 21
-        }
-      },
-      "n_cert_attivi": 15,
-      "n_cert_scaduti": 18,
-      "n_asset": 102,
-      "n_similar_domains": 13,
-      "email_security": {
-        "spoofable": "Spoofing not likely.",
-        "dmarc_policy": "none",
-        "blacklist_detections": 4,
-        "blacklist_total_list": 60,
-        "blacklist_detected_list": []
-      },
-      "n_dataleak": {
-        "total": {
-          "vip": 0,
-          "domain_stealer": 1,
-          "potential_stealer": 977,
-          "other_stealer": 11,
-          "general_leak": 0
-        },
-        "resolved": {
-          "vip": 0,
-          "domain_stealer": 0,
-          "potential_stealer": 0,
-          "other_stealer": 0,
-          "general_leak": 0
-        },
-        "unresolved": {
-          "vip": 0,
-          "domain_stealer": 1,
-          "potential_stealer": 940,
-          "other_stealer": 11,
-          "general_leak": 0
-        },
-        "enumeration": 2
-      },
-      "n_vulns": {
-        "total": {
-          "critical": 2,
-          "high": 13,
-          "medium": 35,
-          "low": 0,
-          "info": 66
-        },
-        "active": {
-          "critical": 2,
-          "high": 0,
-          "medium": 3,
-          "low": 0,
-          "info": 90
-        },
-        "passive": {
-          "critical": 0,
-          "high": 18,
-          "medium": 49,
-          "low": 0,
-          "info": 0
-        }
-      },
-      "waf": {
-        "count": 10,
-        "assets": ["128f92aa-85c1-486f-acbf-c1b43e8b33ba", "ec87e3bd-3de2-477c-b52b-b93a70814ed0", "b909c3b2-56e6-40e5-98c1-814fa0b85bb7", "175e40e8-33af-4db3-9617-a3be04103d6f"]
-      },
-      "cdn": {
-        "count": 5,
-        "assets": []
-      },
-      "unique_ipv4": 30,
-      "unique_ipv6": 23,
-      "summary_text": "**Riepilogo Esecutivo della Vulnerabilit\u00e0 per \"example9.demo\"**\n\nIl dominio \"example9.demo\" presenta una situazione di sicurezza variata...",
-      "summary_text_en": "**Executive Summary of Vulnerability for \"example9.demo\"**\n\nThe domain \"example9.demo\" currently has a varied security situation...",
-      "creation_date": "2024-03-07 18:08:41",
-      "last_edit": "2024-03-08 14:09:44",
-    }    
+    },   
   ]
 });
 

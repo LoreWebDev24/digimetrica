@@ -14,6 +14,10 @@ let spoofableEmails = ref(false);
 let cdnDetectedReports = ref(false);
 let domainsWithCritProblemsReports = ref(false);
 
+// DEFAULT SELECTED FILTER: 
+
+const selectedOption = ref('default');
+
 // ARRAY DELLO STORE MANAGER CONTENENTE IL JSON CON TUTTI I REPORT DELLA SONDA :
 const originalReportSonarArray = reportSonarArray.results;
 
@@ -114,16 +118,27 @@ function fetchReportDetail(report) {
     params: { slug: encodeURIComponent(report.domain_name)},
   });
 }
+
+// SORT BY LOGIC:
+
+const sortArray = () => {
+  if (selectedOption.value === 'ascending') {
+    reportSonarArray.results.sort((a, b) => new Date(a.creation_date) - new Date(b.creation_date));
+  } else if (selectedOption.value === 'descending') {
+    reportSonarArray.results.sort((a, b) => new Date(b.creation_date) - new Date(a.creation_date));
+  }
+};
+
 </script>
 
 <template>
   <main>
     <div class="search_bar_and_sort_wrapper d-flex mw-400 m-auto">
       <SearchBar @on-search-change="handleSearchBarChange" />
-      <select name="sorting_select" id="sorting_select">
-        <option value="">Sort By</option>
-        <option value="Default">Default</option>
-        <option value="Default">Newest</option>
+      <select v-model="selectedOption" @change="sortArray" name="sorting_select" id="sorting_select">
+        <option value="default">Sort By</option>
+        <option value="ascending">Oldest</option>
+        <option value="descending">Latest</option>
       </select>
     </div>
     <section class="sorting_system">
