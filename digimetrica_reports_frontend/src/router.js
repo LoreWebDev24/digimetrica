@@ -13,7 +13,7 @@ const router = createRouter({
 			component: Homepage,
 		},
 		{
-			path: "/ReportDetail/:slug",
+			path: "/reportdetail/:slug",
 			props: function (route)  {
 				const report = reportSonarArray.results.filter(
 				(report) => report.domain_name === route.params.slug

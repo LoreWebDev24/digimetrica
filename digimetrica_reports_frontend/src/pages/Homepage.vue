@@ -109,16 +109,6 @@ function showDomainsWithCritProblems() {
   }
 }
 
-// ROUTER PUSH ALLA PAGINA DI DETAIL UNA VOLTA CLICCATO IL SINGOLO REPORT
-
-function fetchReportDetail(report) {
-  reportSonarArray.results = originalReportSonarArray;
-  router.push({
-    name: "ReportDetail",
-    params: { slug: encodeURIComponent(report.domain_name)},
-  });
-}
-
 // SORT BY LOGIC:
 
 const sortArray = () => {
@@ -128,6 +118,16 @@ const sortArray = () => {
     reportSonarArray.results.sort((a, b) => new Date(b.creation_date) - new Date(a.creation_date));
   }
 };
+
+// ROUTER PUSH ALLA PAGINA DI DETAIL UNA VOLTA CLICCATO IL SINGOLO REPORT
+
+function fetchReportDetail(report) {
+  reportSonarArray.results = originalReportSonarArray;
+  router.push({
+    name: "ReportDetail",
+    params: { slug: encodeURIComponent(report.domain_name)},
+  });
+}
 
 </script>
 

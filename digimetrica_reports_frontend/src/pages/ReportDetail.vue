@@ -4,9 +4,15 @@ import { useRouter } from "vue-router";
 import { defineProps } from "vue";
 import Chart from 'chart.js/auto'; 
 
+// VARIABILI REATTIVE PER SALVARE LO STATO DI VISUALIZZAZIONE DELLE INFO : 
+
 let isClickedReport = ref(false);
 let isClickedPortsExposure = ref(false);
 let isClickedEmailInfos = ref(false);
+let isClickedWafAndIpAddress = ref(false);
+
+// VARIABILI REATTIVE PER LA CREAZIONE DEI GRAFICI : 
+
 const chartRef = ref(null);
 const chartRefTotalVulns = ref(null);
 
@@ -79,23 +85,25 @@ function scrollTop() {
 } 
 
 function showPortsExposure() {
-    isClickedPortsExposure.value = !isClickedPortsExposure.value 
+    isClickedPortsExposure.value = !isClickedPortsExposure.value;
 }
 
 function showSummary () {
-    isClickedReport.value = !isClickedReport.value
+    isClickedReport.value = !isClickedReport.value;
+}
+
+function showWafAndIpAddress () {
+    isClickedWafAndIpAddress.value = ! isClickedWafAndIpAddress.value;
 }
 
 function showEmailInfo () {
-    isClickedEmailInfos.value = !isClickedEmailInfos.value
+    isClickedEmailInfos.value = !isClickedEmailInfos.value;
 }
 
 onMounted(() => {
-    setTimeout(() => {
     createChart();
     createChartTotalVulns();
-  }, 0);
-  scrollTop();
+    scrollTop();
 });
 
 // FUNZIONE PER GENERARE UN TEMPO DI ESECUZIONE DI UN' IPOTETICA SCANSIONE DELLA RETE:
@@ -151,6 +159,10 @@ function generateRandomName() {
 
 function formattText(text) {
   text = text.replace(/\*/g, '');
+
+  if(text.length < 400) {
+    return text + 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie lobortis ante, sed elementum leo condimentum sit amet. Nulla euismod hendrerit turpis id varius. In hac habitasse platea dictumst. Sed tincidunt leo vitae dapibus dignissim. Donec in dolor eros. Vestibulum vehicula vestibulum est sed aliquet. Aenean vitae rhoncus urna. Quisque magna neque, iaculis ut est ac, laoreet placerat purus. Morbi vel justo auctor, consequat urna ut, euismod diam. Quisque id urna a sem pellentesque egestas vitae id tortor. Maecenas tincidunt magna ut pulvinar faucibus. Duis fringilla tellus et suscipit ornare. Placerat purus. Morbi vel justo auctor, consequat urna ut, euismod diam. Quisque id urna a sem pellentesque egestas vitae id tortor. Maecenas tincidunt magna ut pulvinar faucibus. Duis fringilla tellus et suscipit.'
+  }
   
   return text;
 }
@@ -213,7 +225,7 @@ function formattText(text) {
           </div>
         </div>
       </div>
-      <div class="row scores_row">
+      <div class="row scores_row mb-30">
         <div class="vulnerability_wrapper">
           <h3>REPORT SCORES</h3>
         </div>
@@ -292,7 +304,7 @@ function formattText(text) {
         <div  class="col-10 summary_col">
             <div class="summary_wrapper">
                 <h2 @click="showSummary">See The Report Detailed Summary</h2>
-                <img @click="showSummary" class="show-more" src="/show-more.png" alt="">
+                <img @click="showSummary" :class="isClickedReport ? 'turn' : ''" class="show-more" src="/show-more.png" alt="">
             </div>
             <p v-show="isClickedReport">
                 {{formattText(props.report[0].summary_text_en)}}
@@ -303,7 +315,7 @@ function formattText(text) {
         <div  class="col-10">
             <div class="summary_wrapper">
                 <h2 @click="showPortsExposure">Show The Number Of Exposures For Each Network Port</h2>
-                <img @click="showPortsExposure" class="show-more" src="/show-more.png" alt="">
+                <img @click="showPortsExposure" :class="isClickedPortsExposure ? 'turn' : ''" class="show-more" src="/show-more.png" alt="">
             </div>
             <p class="wrapper_port_exposures" v-show="isClickedPortsExposure">
                 <div class="port_exposures">
@@ -330,14 +342,37 @@ function formattText(text) {
             </p>
         </div>
       </div>
+      <div class="row pt-0 show-more-row">
+        <div  class="col-10">
+            <div class="summary_wrapper">
+                <h2 @click="showWafAndIpAddress">Show  IPv4 And IPv6 Detected And WAF Info</h2>
+                <img @click="showWafAndIpAddress" :class="isClickedWafAndIpAddress ? 'turn' : ''" class="show-more" src="/show-more.png" alt="">
+            </div>
+            <div class="waf_and_ip_infos" v-show="isClickedWafAndIpAddress">
+                <div>
+                    <div class="flex"><strong>WEB APPLICATION FIREWALL DETECTED:</strong><span>{{ props.report[0].waf.count }}</span></div>
+                </div>
+                <div v-if="report[0].waf.assets.length > 0" class="assets_wrapper">
+                    <h4 class="mt-20">ASSETTS:</h4>
+                    <div v-for="asset in report[0].waf.assets">
+                    {{ asset }}
+                    </div>
+                </div>
+                <div class="flex justify-center mt-30 wrap">
+                    <div class="flex align-center"><strong>IPV4 ADDRESS DETECTED:</strong><span>{{ props.report[0].unique_ipv4 }}</span></div>
+                    <div class="flex align-center"><strong>IPV6 ADDRESS DETECTED:</strong><span>{{ props.report[0].unique_ipv6 }}</span></div>
+                </div>
+            </div>
+        </div>
+      </div>
       <div class="row show-more-row pt-0">
         <div  class="col-10">
             <div class="summary_wrapper">
                 <h2 @click="showEmailInfo">Show Domain Certificates And Email Security Info</h2>
-                <img @click="showEmailInfo" class="show-more" src="/show-more.png" alt="">
+                <img @click="showEmailInfo" :class="isClickedEmailInfos ? 'turn' : ''" class="show-more" src="/show-more.png" alt="">
             </div>
             <p  v-show="isClickedEmailInfos">
-               <div class="d-flex mb-20">
+               <div class="d-flex mb-20 wrap">
                 <strong>ACTIVE CERTIFICATIONS:</strong><span>{{ props.report[0].n_cert_attivi }}</span>
                 <strong>EXPIRED CERIFICATIONS:</strong><span>{{ props.report[0].n_cert_scaduti }}</span>
                </div>
@@ -383,6 +418,7 @@ canvas {
   align-items: center;
   height: 100%;
   width: 100%;
+  border-top-right-radius: 1rem;
 }
 
 .col-5 {
@@ -476,6 +512,7 @@ h3 {
   gap: 20%;
   color: #00C297;
   font-size: 12px;
+  border-radius: 4px;
 }
 
 .span_scores {
@@ -497,6 +534,9 @@ h3 {
 .summary_wrapper:hover {
     cursor: pointer;
 }
+.summary_wrapper img {
+    transition: 0.3s linear ;
+}
 
 .show-more:hover {
     cursor: pointer;
@@ -508,26 +548,31 @@ h3 {
     width: 40px;
 }
 
-p {
+p, .waf_and_ip_infos {
     background-color: #000D17;
     color: white;
     padding: 20px;
+    border-radius: 4px;
 }
 
 .port_exposures {
     display: flex;
+    width: 200px;
     gap: 10px;
 }
 
 .wrapper_port_exposures {
     display: flex;
     gap: 20px;
-    justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+    font-size: 15px;
+    justify-content: center;
 }
 
 .id_summary {
     font-size: 16px;
 }
+
+
 </style>

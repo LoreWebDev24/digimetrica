@@ -35,8 +35,16 @@ ol {
   margin-bottom: 20px;
 }
 
+.mb-30 {
+  margin-bottom: 30px;
+}
+
 .mt-30 {
   margin-top: 30px;
+}
+
+.mt-20 {
+  margin-top: 20px;
 }
 
 .mt-50 {
@@ -61,6 +69,15 @@ margin-bottom: 50px;
 
 .justify-center {
   justify-content: center;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.flex {
+  display: flex;
+  gap: 20px;
 }
 
 /* END OF UTILITYS */
@@ -126,4 +143,8 @@ main {
 
 .pt-0 {
   padding-top: 0;
+}
+
+.turn {
+  transform: rotate(0.5turn) translateY(5px);
 }
