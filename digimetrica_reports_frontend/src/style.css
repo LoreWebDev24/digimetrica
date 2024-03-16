@@ -86,3 +86,8 @@ main {
 .col-12 {
   flex-basis: calc((100% / 12) * 12);
 }
+
+.show-more-row {
+  justify-content: center;
+  padding: 10px 20px;
+}

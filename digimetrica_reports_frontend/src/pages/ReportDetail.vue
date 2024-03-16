@@ -4,11 +4,16 @@ import { useRouter } from "vue-router";
 import { defineProps } from "vue";
 
 let isClickedReport = ref(false)
+let isClickedPortsExposure = ref(false)
 
 const props = defineProps(["slug", "report"]);
 
 function scrollTop() {
   window.scrollTo(0, 0);
+} 
+
+function showPortsExposure() {
+    isClickedPortsExposure.value = !isClickedPortsExposure.value 
 }
 
 function showSummary () {
@@ -97,7 +102,7 @@ function formattText(text) {
             ><strong>Scan Creation </strong>
             {{ props.report[0].creation_date }}</span
           >
-          <span class="color_razer"
+          <span class="domain_name"
             ><strong>Domain Name </strong>
             {{ props.report[0].domain_name }}</span
           >
@@ -195,6 +200,37 @@ function formattText(text) {
             </p>
         </div>
       </div>
+      <div class="row show-more-row">
+        <div  class="col-10">
+            <div class="summary_wrapper">
+                <h2 @click="showPortsExposure">Show the number of exposures for each network port</h2>
+                <img @click="showPortsExposure" class="show-more" src="/show-more.png" alt="">
+            </div>
+            <p class="wrapper_port_exposures" v-show="isClickedPortsExposure">
+                <div class="port_exposures">
+                    <strong>PORT 53:</strong><span>{{ props.report[0].n_port["53"].n }} exposures</span>
+                </div>
+                <div class="port_exposures">
+                    <strong>PORT 80:</strong><span>{{ props.report[0].n_port["80"].n }} exposures</span>
+                </div>
+                <div class="port_exposures">
+                    <strong>PORT 443:</strong><span>{{ props.report[0].n_port["443"].n }} exposures</span>
+                </div>
+                <div class="port_exposures">
+                    <strong>PORT 6667:</strong><span>{{ props.report[0].n_port["6667"].n }} exposures</span>
+                </div>
+                <div class="port_exposures">
+                    <strong>PORT 6697:</strong><span>{{ props.report[0].n_port["6697"].n }} exposures</span>
+                </div>
+                <div class="port_exposures">
+                    <strong>PORT 8080:</strong><span>{{ props.report[0].n_port["8080"].n }} exposures</span>
+                </div>
+                <div class="port_exposures">
+                    <strong>PORT 8800:</strong><span>{{ props.report[0].n_port["8800"].n }} exposures</span>
+                </div>
+            </p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -230,7 +266,7 @@ function formattText(text) {
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1000px;
   background-color: #1a2032;
   margin: 0 auto;
   border-radius: 1rem;
@@ -240,7 +276,7 @@ function formattText(text) {
 
 .report-detail-section {
   padding: 50px 20px;
-  
+
 }
 
 span {
@@ -260,8 +296,8 @@ span {
   background-color: gold;
 }
 
-.color_razer {
-  color: #00fe00;
+.domain_name {
+  color: #00c297;
 }
 
 .text-xs {
@@ -306,6 +342,8 @@ h3 {
   align-items: center;
   flex-direction: column;
   gap: 20%;
+  color: #00C297;
+  font-size: 12px;
 }
 
 .span_scores {
@@ -318,20 +356,36 @@ h3 {
     justify-content: center;
 }
 
-
-
 .summary_wrapper {
     display: flex;
     gap: 30px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 .summary_wrapper:hover {
     cursor: pointer;
 }
 
-
 .show-more:hover {
     cursor: pointer;
+}
+
+p {
+    background-color: #000D17;
+    color: white;
+    padding: 20px;
+}
+
+.port_exposures {
+    display: flex;
+    gap: 10px;
+}
+
+.wrapper_port_exposures {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
 }
 </style>
