@@ -222,7 +222,9 @@ export const reportSonarArray = reactive({
       "unique_ipv4": 30,
       "unique_ipv6": 23,
       "summary_text": "**Riepilogo Esecutivo della Vulnerabilit\u00e0 per \"example1.demo\"**\n\nIl dominio \"example1.demo\" presenta una situazione di sicurezza variata...",
-      "summary_text_en": "**Executive Summary of Vulnerability for \"example1.demo\"**\n\nThe domain \"example1.demo\" currently has a varied security situation..."
+      "summary_text_en": "**Executive Summary of Vulnerability for \"example1.demo\"**\n\nThe domain \"example1.demo\" currently has a varied security situation...",
+      "creation_date": "2024-03-06 17:08:41",
+      "last_edit": "2024-03-09 12:09:44",
     },
     {
       "idsummary": "b2388600-b621-4cb0-8885-a444a8369e39",
@@ -329,7 +331,9 @@ export const reportSonarArray = reactive({
       "unique_ipv4": 30,
       "unique_ipv6": 23,
       "summary_text": "**Riepilogo Esecutivo della Vulnerabilit\u00e0 per \"example2.demo\"**\n\nIl dominio \"example2.demo\" presenta una situazione di sicurezza variata...",
-      "summary_text_en": "**Executive Summary of Vulnerability for \"example2.demo\"**\n\nThe domain \"example2.demo\" currently has a varied security situation..."
+      "summary_text_en": "**Executive Summary of Vulnerability for \"example2.demo\"**\n\nThe domain \"example2.demo\" currently has a varied security situation...",
+      "creation_date": "2024-03-07 18:08:41",
+      "last_edit": "2024-03-08 14:09:44",
     },
     {
       "idsummary": "19b675f7-a4f7-451f-bdf7-2702e68a7416",
@@ -436,7 +440,9 @@ export const reportSonarArray = reactive({
       "unique_ipv4": 30,
       "unique_ipv6": 23,
       "summary_text": "**Riepilogo Esecutivo della Vulnerabilit\u00e0 per \"example3.demo\"**\n\nIl dominio \"example3.demo\" presenta una situazione di sicurezza variata...",
-      "summary_text_en": "**Executive Summary of Vulnerability for \"example3.demo\"**\n\nThe domain \"example3.demo\" currently has a varied security situation..."
+      "summary_text_en": "**Executive Summary of Vulnerability for \"example3.demo\"**\n\nThe domain \"example3.demo\" currently has a varied security situation...",
+      "creation_date": "2023-02-22 17:08:41",
+      "last_edit": "2024-03-08 11:09:44",
     },
     {
       "idsummary": "5ed3afac-4b54-4298-9dd2-7bcdd91d5648",
@@ -543,7 +549,9 @@ export const reportSonarArray = reactive({
       "unique_ipv4": 30,
       "unique_ipv6": 23,
       "summary_text": "**Riepilogo Esecutivo della Vulnerabilit\u00e0 per \"example4.demo\"**\n\nIl dominio \"example4.demo\" presenta una situazione di sicurezza variata...",
-      "summary_text_en": "**Executive Summary of Vulnerability for \"example4.demo\"**\n\nThe domain \"example4.demo\" currently has a varied security situation..."
+      "summary_text_en": "**Executive Summary of Vulnerability for \"example4.demo\"**\n\nThe domain \"example4.demo\" currently has a varied security situation...",
+      "creation_date": "2024-01-07 12:08:41",
+      "last_edit": "2024-02-06 19:09:44",
     },
     {
       "idsummary": "86edeafe-bc5f-4a88-a6bf-830f4823d7e9",
@@ -650,7 +658,9 @@ export const reportSonarArray = reactive({
       "unique_ipv4": 30,
       "unique_ipv6": 23,
       "summary_text": "**Riepilogo Esecutivo della Vulnerabilit\u00e0 per \"example5.demo\"**\n\nIl dominio \"example5.demo\" presenta una situazione di sicurezza variata...",
-      "summary_text_en": "**Executive Summary of Vulnerability for \"example5.demo\"**\n\nThe domain \"example5.demo\" currently has a varied security situation..."
+      "summary_text_en": "**Executive Summary of Vulnerability for \"example5.demo\"**\n\nThe domain \"example5.demo\" currently has a varied security situation...",
+      "creation_date": "2022-03-07 03:08:41",
+      "last_edit": "2023-02-22 05:09:44",
     },
     {
       "idsummary": "e0911f3c-1045-4a23-b173-e9b538908f6f",
@@ -757,7 +767,9 @@ export const reportSonarArray = reactive({
       "unique_ipv4": 30,
       "unique_ipv6": 23,
       "summary_text": "**Riepilogo Esecutivo della Vulnerabilit\u00e0 per \"example6.demo\"**\n\nIl dominio \"example6.demo\" presenta una situazione di sicurezza variata...",
-      "summary_text_en": "**Executive Summary of Vulnerability for \"example6.demo\"**\n\nThe domain \"example6.demo\" currently has a varied security situation..."
+      "summary_text_en": "**Executive Summary of Vulnerability for \"example6.demo\"**\n\nThe domain \"example6.demo\" currently has a varied security situation...",
+      "creation_date": "2024-01-17 16:08:42",
+      "last_edit": "2024-02-22 15:09:45",
     },
     {
       "idsummary": "69069027-072e-4c37-98e1-edcbb471e840",
@@ -864,7 +876,9 @@ export const reportSonarArray = reactive({
       "unique_ipv4": 30,
       "unique_ipv6": 23,
       "summary_text": "**Riepilogo Esecutivo della Vulnerabilit\u00e0 per \"example7.demo\"**\n\nIl dominio \"example7.demo\" presenta una situazione di sicurezza variata...",
-      "summary_text_en": "**Executive Summary of Vulnerability for \"example7.demo\"**\n\nThe domain \"example7.demo\" currently has a varied security situation..."
+      "summary_text_en": "**Executive Summary of Vulnerability for \"example7.demo\"**\n\nThe domain \"example7.demo\" currently has a varied security situation...",
+      "creation_date": "2024-03-07 18:08:41",
+      "last_edit": "2024-03-08 14:09:44",
     },
     {
       "idsummary": "e3ee718c-5f9a-4a8d-8b20-23c2ffac9afc",
@@ -971,7 +985,9 @@ export const reportSonarArray = reactive({
       "unique_ipv4": 30,
       "unique_ipv6": 23,
       "summary_text": "**Riepilogo Esecutivo della Vulnerabilit\u00e0 per \"example8.demo\"**\n\nIl dominio \"example8.demo\" presenta una situazione di sicurezza variata...",
-      "summary_text_en": "**Executive Summary of Vulnerability for \"example8.demo\"**\n\nThe domain \"example8.demo\" currently has a varied security situation..."
+      "summary_text_en": "**Executive Summary of Vulnerability for \"example8.demo\"**\n\nThe domain \"example8.demo\" currently has a varied security situation...",
+      "creation_date": "2024-03-07 18:08:41",
+      "last_edit": "2024-03-08 14:09:44",
     },
     {
       "idsummary": "25911d6e-2d87-442e-8a9f-960c493a94ff",
@@ -1078,7 +1094,9 @@ export const reportSonarArray = reactive({
       "unique_ipv4": 30,
       "unique_ipv6": 23,
       "summary_text": "**Riepilogo Esecutivo della Vulnerabilit\u00e0 per \"example9.demo\"**\n\nIl dominio \"example9.demo\" presenta una situazione di sicurezza variata...",
-      "summary_text_en": "**Executive Summary of Vulnerability for \"example9.demo\"**\n\nThe domain \"example9.demo\" currently has a varied security situation..."
+      "summary_text_en": "**Executive Summary of Vulnerability for \"example9.demo\"**\n\nThe domain \"example9.demo\" currently has a varied security situation...",
+      "creation_date": "2024-03-07 18:08:41",
+      "last_edit": "2024-03-08 14:09:44",
     }    
   ]
 });

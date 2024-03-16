@@ -4,25 +4,25 @@ const { report } = defineProps(["report"]);
 
 // FUNZIONE PER GENERARE UN TIMESTAMP RANDOM FORMATTATO:
 
-function getRandomTimeStamp() {
+// function getRandomTimeStamp() {
 
-  const startDate = new Date('2024-01-01').getTime();
-  const endDate = new Date('2024-12-31').getTime();
-  const randomTimestamp = startDate + Math.random() * (endDate - startDate);
-  const randomDate = new Date(randomTimestamp);
+//   const startDate = new Date('2024-01-01').getTime();
+//   const endDate = new Date('2024-12-31').getTime();
+//   const randomTimestamp = startDate + Math.random() * (endDate - startDate);
+//   const randomDate = new Date(randomTimestamp);
 
-  const year = randomDate.getFullYear();
-  const month = String(randomDate.getMonth() + 1).padStart(2, '0'); 
-  const day = String(randomDate.getDate()).padStart(2, '0');
+//   const year = randomDate.getFullYear();
+//   const month = String(randomDate.getMonth() + 1).padStart(2, '0'); 
+//   const day = String(randomDate.getDate()).padStart(2, '0');
 
-  const hours = String(randomDate.getHours()).padStart(2, '0');
-  const minutes = String(randomDate.getMinutes()).padStart(2, '0');
-  const seconds = String(randomDate.getSeconds()).padStart(2, '0');
+//   const hours = String(randomDate.getHours()).padStart(2, '0');
+//   const minutes = String(randomDate.getMinutes()).padStart(2, '0');
+//   const seconds = String(randomDate.getSeconds()).padStart(2, '0');
 
-  const formattedTimestamp = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+//   const formattedTimestamp = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 
-  return formattedTimestamp
-}
+//   return formattedTimestamp
+// }
 </script>
 
 <template>
@@ -70,13 +70,13 @@ function getRandomTimeStamp() {
       <li>
         <span>Created</span
         ><span>
-          {{ report.creation_date || getRandomTimeStamp() }}
+          {{ report.creation_date }}
         </span>
       </li>
       <li>
         <span>Updated</span
         ><span>
-          {{ report.creation_date  || getRandomTimeStamp() }}
+          {{ report.creation_date }}
         </span>
       </li>
     </ul>

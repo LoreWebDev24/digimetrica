@@ -5,11 +5,6 @@ import { defineProps } from 'vue';
 
 const  props  = defineProps(["slug","report"]);
 
-
-onMounted(() => {
-
-})  
-
 </script>
 
 <template>
