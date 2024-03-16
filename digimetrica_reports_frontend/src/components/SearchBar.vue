@@ -1,13 +1,21 @@
 <script setup>
-import { ref, getCurrentInstance } from 'vue';
-
+import { ref, getCurrentInstance, watch} from 'vue';
+import { state } from "../../storeManager.js";
 const instance = getCurrentInstance();
 
 const inputValue = ref('');
 
+state.inputValue = inputValue.value
+
+
 const onChange = () => {
-  instance.emit('on-search-change', inputValue.value);
+  instance.emit('on-search-change',inputValue);
+  state.inputValue = event.target.value;
 }
+
+watch(() => state.inputValue, newValue => {
+  inputValue.value = newValue;
+});
 
 </script>
 

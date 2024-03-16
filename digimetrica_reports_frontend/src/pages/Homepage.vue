@@ -1,14 +1,15 @@
 <script setup>
 import { computed, ref, watch } from "vue";
 import { reportSonarArray } from "../../storeManager.js";
+import { state } from "../../storeManager.js";
 import CardReport from "../components/CardReport.vue";
 import SearchBar from "../components/SearchBar.vue";
-let searchInput = ref("");
 // VARIABILI REATTIVE PER IL FILTRAGGIO DEI REPORTS NEL DOM 
 let highRiskReports = ref(false);
 let spoofableEmails = ref(false);
 let cdnDetectedReports = ref(false);
 let domainsWithCritProblemsReports = ref(false);
+
 
 // ARRAY DELLO STORE MANAGER CONTENENTE IL JSON CON TUTTI I REPORT DELLA SONDA :
 const originalReportSonarArray = reportSonarArray.results;
@@ -16,16 +17,20 @@ const originalReportSonarArray = reportSonarArray.results;
 // SISTEMA DI RICERCA PER NOME DEL SINGOLO REPORT:
 
 function handleSearchBarChange(input) {
+  console.log(input.value);
+  state.inputValue = input.value
+  console.log(state.inputValue)
   highRiskReports.value = false;
   spoofableEmails.value = false;
   cdnDetectedReports.value = false;
   domainsWithCritProblemsReports.value = false;
-  searchInput.value = input.trim().toLowerCase();
-  console.log(searchInput.value);
-  if (searchInput.value) {
+  state.inputValue = input.value.trim().toLowerCase();
+  
+  if (state.inputValue) {
     reportSonarArray.results = originalReportSonarArray.filter((report) =>
-      report.domain_name.toLowerCase().includes(searchInput.value)
+      report.domain_name.toLowerCase().includes(state.inputValue)
     );
+    console.log(state.inputValue)
   }
   else {
     reportSonarArray.results = originalReportSonarArray
@@ -37,7 +42,7 @@ function handleSearchBarChange(input) {
 // SISTEMA DI RICERCA PER CATEGORIA E LOGICA DI RESET QUANDO UNA CATEGORIA E' GIA' SELEZIONATA:
 
 function showHighRiskReports() {
-  searchInput.value = '';
+  state.inputValue = '';
   spoofableEmails.value = false;
   cdnDetectedReports.value = false;
   domainsWithCritProblemsReports.value = false;
@@ -54,7 +59,7 @@ function showHighRiskReports() {
 }
 
 function showSpoofableEmailsReports() {
-  searchInput.value = '';
+  state.inputValue = '';
   highRiskReports.value = false;
   cdnDetectedReports.value = false;
   domainsWithCritProblemsReports.value = false;
@@ -70,7 +75,7 @@ function showSpoofableEmailsReports() {
 }
 
 function showCdnDetectedReports() {
-  searchInput.value = '';
+  state.inputValue = '';
   highRiskReports.value = false;
   spoofableEmails.value = false;
   domainsWithCritProblemsReports.value = false;
@@ -86,7 +91,7 @@ function showCdnDetectedReports() {
 }
 
 function showDomainsWithCritProblems() {
-  searchInput.value = '';
+  state.inputValue = '';
   highRiskReports.value = false;
   spoofableEmails.value = false;
   cdnDetectedReports.value = false
