@@ -3,6 +3,7 @@ import { router } from '../router';
 
 function backToHome () {
   router.push('/');
+  
 }
 
 </script>

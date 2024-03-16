@@ -96,7 +96,7 @@ function showDomainsWithCritProblems() {
   cdnDetectedReports.value = false;
   domainsWithCritProblemsReports.value = !domainsWithCritProblemsReports.value;
   console.log(domainsWithCritProblemsReports.value);
-  if (domainsWithCritProblemsReports) {
+  if (domainsWithCritProblemsReports.value) {
     reportSonarArray.results = originalReportSonarArray.filter(
       (report) => report.n_vulns.total.critical > 0
     );
@@ -108,10 +108,10 @@ function showDomainsWithCritProblems() {
 // ROUTER PUSH ALLA PAGINA DI DETAIL UNA VOLTA CLICCATO IL SINGOLO REPORT
 
 function fetchReportDetail(report) {
+  reportSonarArray.results = originalReportSonarArray;
   router.push({
     name: "ReportDetail",
     params: { slug: encodeURIComponent(report.domain_name)},
-    
   });
 }
 </script>

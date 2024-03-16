@@ -3,17 +3,21 @@ import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import { defineProps } from "vue";
 
+let isClickedReport = ref(false)
+
 const props = defineProps(["slug", "report"]);
 
 function scrollTop() {
-	window.scrollTo(0, 0);
+  window.scrollTo(0, 0);
+}
+
+function showSummary () {
+    isClickedReport.value = !isClickedReport.value
 }
 
 onMounted(() => {
-    scrollTop()
-})
-
-
+  scrollTop();
+});
 
 // FUNZIONE PER GENERARE UN TEMPO DI ESECUZIONE DI UN' IPOTETICA SCANSIONE DELLA RETE:
 
@@ -63,12 +67,20 @@ function generateRandomName() {
 
   return `${randomName} ${randomSurname}`;
 }
+
+// FUNZIONE PER FORMATTARE IL TESTO DEI  SUMMARYS : 
+
+function formattText(text) {
+  text = text.replace(/\*/g, '');
+  
+  return text;
+}
 </script>
 
 <template>
   <div class="report-detail-section">
     <div class="container">
-      <div class="row">
+      <div class="row report_first_row">
         <div class="col-5">
           <span><strong>Scan Maker </strong> {{ generateRandomName() }}</span>
           <span
@@ -82,11 +94,18 @@ function generateRandomName() {
         </div>
         <div class="col-5">
           <span
-            ><strong>Scan Creation: </strong>
+            ><strong>Scan Creation </strong>
             {{ props.report[0].creation_date }}</span
           >
+          <span class="color_razer"
+            ><strong>Domain Name </strong>
+            {{ props.report[0].domain_name }}</span
+          >
+          <span class="text-xs"
+            ><strong>ID Summary </strong> {{ props.report[0].idsummary }}</span
+          >
         </div>
-        <div class="col-2">
+        <div class="col-2 risk_col">
           <div class="risk_level_wrapper">
             <strong class="bg-red" v-if="props.report[0].risk_score > 79"
               ><span>Risk Level</span>CRITICAL</strong
@@ -106,11 +125,85 @@ function generateRandomName() {
           </div>
         </div>
       </div>
+      <div class="row scores_row">
+        <div class="vulnerability_wrapper">
+          <h3>REPORT SCORES</h3>
+        </div>
+        <div class="col-2">
+          <span class="span_scores">{{
+            props.report[0].servizi_esposti_score
+          }}</span>
+          EXPOSED SERV. SCORE
+        </div>
+        <div class="col-2">
+            <span class="span_scores">{{
+            props.report[0].dataleak_score
+          }}</span>
+          LEAKED DATA SCORE
+        </div>
+        <div class="col-2">
+            <span class="span_scores">{{
+            props.report[0].rapporto_leak_email_score
+          }}</span>
+          LEAKED EMAIL SCORE
+        </div>
+        <div class="col-2">
+            <span class="span_scores">{{
+            props.report[0].spoofing_score
+          }}</span>
+          SPOOFING SCORE
+        </div>
+        <div class="col-2">
+            <span class="span_scores">{{
+            props.report[0].open_ports_score
+          }}</span>
+          OPEN PORTS SCORE
+        </div>
+        <div class="col-2">
+            <span class="span_scores">{{
+            props.report[0].blacklist_score
+          }}</span>
+          BLACKLIST SCORE
+        </div>
+        <div class="col-2">
+            <span class="span_scores">{{
+            props.report[0].vulnerability_score_active
+          }}</span>
+          VULN. SCORE ACTIVE
+        </div>
+        <div class="col-2">
+            <span class="span_scores">{{
+            props.report[0].vulnerability_score_active
+          }}</span>
+          VULN. SCORE PASSIVE
+        </div>
+        <div class="col-2">
+            <span class="span_scores">{{
+            props.report[0].certificate_score
+          }}</span>
+          CERTIFICATE SCORE
+        </div>
+      </div>
+      <div class="row summary_row">
+        <div  class="col-10 summary_col">
+            <div class="summary_wrapper">
+                <h2 @click="showSummary">See The Report Detailed Summary</h2>
+                <img @click="showSummary" class="show-more" src="/show-more.png" alt="">
+            </div>
+            <p v-show="isClickedReport">
+                {{formattText(props.report[0].summary_text_en)}}
+            </p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
+.report_first_row {
+  height: 150px;
+}
+
 .risk_level_wrapper {
   height: 100%;
 }
@@ -129,22 +222,25 @@ function generateRandomName() {
   flex-direction: column;
   gap: 10px;
   padding: 20px;
+  justify-content: center;
 }
 
-.risk-col {
-  align-items: flex-end;
+.col-5:first-child {
+  padding-left: 60px;
 }
 
 .container {
-  max-width: 1000px;
+  max-width: 1200px;
   background-color: #1a2032;
   margin: 0 auto;
   border-radius: 1rem;
+  position: relative;
+  padding-bottom: 30px;
 }
 
 .report-detail-section {
   padding: 50px 20px;
-  min-height: 400px;
+  
 }
 
 span {
@@ -153,7 +249,7 @@ span {
 }
 
 .bg-red {
-  background-color: red;
+  background-color: #c80817;
 }
 
 .bg-green {
@@ -162,5 +258,80 @@ span {
 
 .bg-yellow {
   background-color: gold;
+}
+
+.color_razer {
+  color: #00fe00;
+}
+
+.text-xs {
+  font-size: 12px;
+}
+
+.vulnerability_wrapper {
+  display: flex;
+  justify-content: center;
+  height: 250px;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  white-space: nowrap;
+  position: absolute;
+  left: 10px;
+  top: 250px;
+}
+
+h3 {
+  width: 34px;
+  height: 200px;
+  background-color: #000d17;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.scores_row {
+  margin-top: 30px;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  padding: 0px 20px;
+}
+
+.col-2:not(.risk_col) {
+  background-color: #000d17;
+  height: 194px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20%;
+}
+
+.span_scores {
+  font-size: 60px;
+}
+
+.summary_row {
+    margin-top: 50px;
+    padding: 0px 20px;
+    justify-content: center;
+}
+
+
+
+.summary_wrapper {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.summary_wrapper:hover {
+    cursor: pointer;
+}
+
+
+.show-more:hover {
+    cursor: pointer;
 }
 </style>
