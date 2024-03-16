@@ -2,9 +2,74 @@
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import { defineProps } from "vue";
+import Chart from 'chart.js/auto'; 
 
-let isClickedReport = ref(false)
-let isClickedPortsExposure = ref(false)
+let isClickedReport = ref(false);
+let isClickedPortsExposure = ref(false);
+let isClickedEmailInfos = ref(false);
+const chartRef = ref(null);
+const chartRefTotalVulns = ref(null);
+ 
+
+
+const createChart = () => {
+  if (!chartRef.value) return;
+
+  const data = {
+    labels: ['Vip', 'Domain Stealer', 'Potential Stealer', 'Other Stealer', 'General Leak'],
+    datasets: [{
+      label: 'Data Leaks Statistics',
+      data: [props.report[0].n_dataleak.total.vip, props.report[0].n_dataleak.total.domain_stealer, props.report[0].n_dataleak.total.potential_stealer, props.report[0].n_dataleak.total.other_stealer, props.report[0].n_dataleak.total.general_leak],
+      backgroundColor: [
+        'rgb(255, 99, 132)',
+        'rgb(54, 162, 235)',
+        'rgb(255, 205, 86)',
+        'rgb(75, 192, 192)',
+        'rgb(153, 102, 255)'
+      ],
+      hoverOffset: 4
+    }]
+  };
+
+  const options = {};
+
+  new Chart(chartRef.value, {
+    type: 'pie',
+    data: data,
+    options: options
+  });
+};
+
+const createChartTotalVulns = () => {
+  if (!chartRefTotalVulns.value) return;
+
+  const data = {
+    labels: ['Critical Vulns', 'High Vulns', 'Medium Vulns', 'Low Vulns', 'Info'],
+    datasets: [{
+      label: 'Total Domain Vulnerabilities',
+      data: [65, 59, 80, 81, 56, 55, 40],
+      backgroundColor: [
+        'rgb(255, 99, 132)',
+        'rgb(54, 162, 235)',
+        'rgb(255, 205, 86)',
+        'rgb(75, 192, 192)',
+        'rgb(153, 102, 255)'
+      ],
+      fill: false,
+      borderColor: 'rgb(75, 192, 192)',
+      tension: 0.1
+    }]
+  };
+
+  const options = {};
+
+  new Chart(chartRefTotalVulns.value, {
+    type: 'bar',
+    data: data,
+    options: options
+  });
+};
+
 
 const props = defineProps(["slug", "report"]);
 
@@ -20,7 +85,15 @@ function showSummary () {
     isClickedReport.value = !isClickedReport.value
 }
 
+function showEmailInfo () {
+    isClickedEmailInfos.value = !isClickedEmailInfos.value
+}
+
 onMounted(() => {
+    setTimeout(() => {
+    createChart();
+    createChartTotalVulns();
+  }, 0);
   scrollTop();
 });
 
@@ -80,6 +153,8 @@ function formattText(text) {
   
   return text;
 }
+
+
 </script>
 
 <template>
@@ -96,6 +171,10 @@ function formattText(text) {
             ><strong>Scan Duration </strong>
             {{ generateRandomTime() }} min</span
           >
+          <span
+            ><strong>Analyzed Assets </strong>
+            {{ props.report[0].n_asset }} </span
+          >
         </div>
         <div class="col-5">
           <span
@@ -107,7 +186,11 @@ function formattText(text) {
             {{ props.report[0].domain_name }}</span
           >
           <span class="text-xs"
-            ><strong>ID Summary </strong> {{ props.report[0].idsummary }}</span
+            ><strong class="id_summary">ID Summary </strong> {{ props.report[0].idsummary }}</span
+          >
+          <span
+            ><strong>Similiar Domains Detected </strong>
+            {{ props.report[0].n_similar_domains }} </span
           >
         </div>
         <div class="col-2 risk_col">
@@ -188,6 +271,22 @@ function formattText(text) {
           }}</span>
           CERTIFICATE SCORE
         </div>
+        <div class="col-2">
+            <span class="span_scores">{{
+            props.report[0].cdn["count"]
+          }}</span>
+          CDN DETECTED
+        </div>
+      </div>
+      <div class="row justify-center">
+        <div class="chart-container mb-50 mt-50 col-6">
+            Total Data Leaks Statistics
+            <canvas ref="chartRef"></canvas>
+        </div>
+        <div class="chart-container mb-50 mt-50 col-6 pr-30">
+            Total Domain Vulnerabilities Statistics
+            <canvas ref="chartRefTotalVulns"></canvas>
+        </div>
       </div>
       <div class="row summary_row">
         <div  class="col-10 summary_col">
@@ -203,7 +302,7 @@ function formattText(text) {
       <div class="row show-more-row">
         <div  class="col-10">
             <div class="summary_wrapper">
-                <h2 @click="showPortsExposure">Show the number of exposures for each network port</h2>
+                <h2 @click="showPortsExposure">Show The Number Of Exposures For Each Network Port</h2>
                 <img @click="showPortsExposure" class="show-more" src="/show-more.png" alt="">
             </div>
             <p class="wrapper_port_exposures" v-show="isClickedPortsExposure">
@@ -231,11 +330,44 @@ function formattText(text) {
             </p>
         </div>
       </div>
+      <div class="row show-more-row pt-0">
+        <div  class="col-10">
+            <div class="summary_wrapper">
+                <h2 @click="showEmailInfo">Show Domain Certificates And Email Security Info</h2>
+                <img @click="showEmailInfo" class="show-more" src="/show-more.png" alt="">
+            </div>
+            <p  v-show="isClickedEmailInfos">
+               <div class="d-flex mb-20">
+                <strong>ACTIVE CERTIFICATIONS:</strong><span>{{ props.report[0].n_cert_attivi }}</span>
+                <strong>EXPIRED CERIFICATIONS:</strong><span>{{ props.report[0].n_cert_scaduti }}</span>
+               </div>
+               <div class="d-flex wrap">
+                    <strong>EMAIL SPOOFABILITY:</strong><span>{{ props.report[0].email_security.spoofable }}</span>
+                    <strong>DMARC POLICY VALUE:</strong><span>{{ props.report[0].email_security.dmarc_policy }}</span>
+                    <strong>BLACKLIST DETECTIONS:</strong><span>{{ props.report[0].email_security.blacklist_detections }}</span>
+                    <strong>TOTAL IN BLACKLIST:</strong><span>{{ props.report[0].email_security.blacklist_total_list }}</span>
+               </div>
+            </p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
+.chart-container {
+  height: 400px; 
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+canvas {
+    width: 50%;
+}
+
 .report_first_row {
   height: 150px;
 }
@@ -281,7 +413,7 @@ function formattText(text) {
 
 span {
   display: flex;
-  gap: 20px;
+  justify-content: space-between;
 }
 
 .bg-red {
@@ -369,6 +501,12 @@ h3 {
 .show-more:hover {
     cursor: pointer;
 }
+.show-more {
+    max-width: 40px;
+    max-height: 40px;
+    height: 40px;
+    width: 40px;
+}
 
 p {
     background-color: #000D17;
@@ -387,5 +525,9 @@ p {
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+}
+
+.id_summary {
+    font-size: 16px;
 }
 </style>

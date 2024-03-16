@@ -23,12 +23,44 @@ ol {
   gap: 20px;
 }
 
+.wrap {
+  flex-wrap: wrap;
+}
+
 .mw-400 {
   max-width: 400px;
 }
 
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.mt-30 {
+  margin-top: 30px;
+}
+
+.mt-50 {
+  margin-top: 50px;
+}
+
+.mb-50 {
+margin-bottom: 50px;
+}
+
+.pr-30 {
+  padding-right: 30px;
+}
+
 .m-auto {
   margin: 0 auto;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.justify-center {
+  justify-content: center;
 }
 
 /* END OF UTILITYS */
@@ -89,5 +121,9 @@ main {
 
 .show-more-row {
   justify-content: center;
-  padding: 10px 20px;
+  padding: 30px 20px;
+}
+
+.pt-0 {
+  padding-top: 0;
 }
