@@ -643,6 +643,7 @@ h3 {
     display: flex;
     gap: 30px;
     margin-bottom: 20px;
+    align-items: center;
 }
 
 .summary_wrapper:hover {
