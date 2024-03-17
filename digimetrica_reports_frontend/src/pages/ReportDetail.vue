@@ -29,7 +29,7 @@ const createChart = () => {
   const data = {
     labels: ['Vip', 'Domain Stealer', 'Potential Stealer', 'Other Stealer', 'General Leak'],
     datasets: [{
-      label: 'Data Leaks Statistics',
+      // label: 'Data Leaks Statistics',
       data: [props.report[0].n_dataleak.total.vip, props.report[0].n_dataleak.total.domain_stealer, props.report[0].n_dataleak.total.potential_stealer, props.report[0].n_dataleak.total.other_stealer, props.report[0].n_dataleak.total.general_leak],
       backgroundColor: [
         'rgb(255, 99, 132)',
@@ -369,7 +369,7 @@ function backToHome () {
                     <div class="flex"><strong>WEB APPLICATION FIREWALL DETECTED:</strong><span>{{ props.report[0].waf.count }}</span></div>
                 </div>
                 <div v-if="report[0].waf.assets.length > 0" class="assets_wrapper">
-                    <h4 class="mt-20">ASSETTS:</h4>
+                    <h4 class="mt-20">ASSETS:</h4>
                     <div v-for="asset in report[0].waf.assets">
                     {{ asset }}
                     </div>
