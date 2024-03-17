@@ -21,6 +21,12 @@ const chartRefTotalVulns = ref(null);
  
 const props = defineProps(["slug", "report"]);
 
+console.log(!props.report)
+
+if (!props.report) {
+  backToHome ()
+}
+
 // CREO I CANVAS CONTENENTI I GRAFICI CON I DATI DINAMICI DEL SINGOLO REPORT :
 
 const createChart = () => {
