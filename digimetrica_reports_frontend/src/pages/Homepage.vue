@@ -26,9 +26,7 @@ const originalReportSonarArray = reportSonarArray.results;
 // SISTEMA DI RICERCA PER NOME DEL SINGOLO REPORT:
 
 function handleSearchBarChange(input) {
-  console.log(input.value);
   state.inputValue = input.value;
-  console.log(state.inputValue);
   highRiskReports.value = false;
   spoofableEmails.value = false;
   cdnDetectedReports.value = false;
@@ -39,7 +37,6 @@ function handleSearchBarChange(input) {
     reportSonarArray.results = originalReportSonarArray.filter((report) =>
       report.domain_name.toLowerCase().includes(state.inputValue)
     );
-    console.log(state.inputValue);
   } else {
     reportSonarArray.results = originalReportSonarArray;
   }
@@ -53,7 +50,6 @@ function showHighRiskReports() {
   cdnDetectedReports.value = false;
   domainsWithCritProblemsReports.value = false;
   highRiskReports.value = !highRiskReports.value;
-  console.log(highRiskReports.value);
   if (highRiskReports.value) {
     reportSonarArray.results = originalReportSonarArray.filter(
       (report) => report.risk_score > 79
@@ -69,7 +65,6 @@ function showSpoofableEmailsReports() {
   cdnDetectedReports.value = false;
   domainsWithCritProblemsReports.value = false;
   spoofableEmails.value = !spoofableEmails.value;
-  console.log(spoofableEmails.value);
   if (spoofableEmails.value) {
     reportSonarArray.results = originalReportSonarArray.filter(
       (report) => report.email_security.spoofable === "Spoofing possible."
@@ -85,7 +80,6 @@ function showCdnDetectedReports() {
   spoofableEmails.value = false;
   domainsWithCritProblemsReports.value = false;
   cdnDetectedReports.value = !cdnDetectedReports.value;
-  console.log(cdnDetectedReports.value);
   if (cdnDetectedReports.value) {
     reportSonarArray.results = originalReportSonarArray.filter(
       (report) => report.cdn.count > 0
@@ -101,7 +95,6 @@ function showDomainsWithCritProblems() {
   spoofableEmails.value = false;
   cdnDetectedReports.value = false;
   domainsWithCritProblemsReports.value = !domainsWithCritProblemsReports.value;
-  console.log(domainsWithCritProblemsReports.value);
   if (domainsWithCritProblemsReports.value) {
     reportSonarArray.results = originalReportSonarArray.filter(
       (report) => report.n_vulns.total.critical > 0
@@ -302,7 +295,6 @@ onMounted(async () => {
 .active {
   background-color: #00fe00;
   color: black;
-  font-weight: 700;
 }
 
 .alert {
