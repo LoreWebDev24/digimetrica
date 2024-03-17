@@ -1,7 +1,6 @@
 <script setup>
 import { reportSonarArray } from "../../storeManager.js";
 const { report } = defineProps(["report"]);
-
 </script>
 
 <template>
@@ -25,7 +24,11 @@ const { report } = defineProps(["report"]);
       <li>
         <span>Is Email Spoofable</span
         ><span>
-          {{ report.email_security.spoofable === 'Spoofing possible.' ? 'Yes' : 'No' }}
+          {{
+            report.email_security.spoofable === "Spoofing possible."
+              ? "Yes"
+              : "No"
+          }}
         </span>
       </li>
       <li>
@@ -43,7 +46,7 @@ const { report } = defineProps(["report"]);
       <li>
         <span>Similiar Domains Found</span
         ><span>
-          {{ report.n_similar_domains}}
+          {{ report.n_similar_domains }}
         </span>
       </li>
       <li>
@@ -76,7 +79,7 @@ li {
 }
 
 li span:first-child {
-    color: #00C297
+  color: #00c297;
 }
 
 .report {
@@ -91,7 +94,7 @@ li span:first-child {
 }
 
 .report:hover {
-  background-color: #00C297;
+  background-color: #00c297;
   color: black;
   cursor: pointer;
   border: 1px solid #1a2032;

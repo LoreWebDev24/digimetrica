@@ -1,34 +1,37 @@
 <script setup>
-import { router } from '../router';
+import { router } from "../router";
 
-function backToHome () {
-  router.push('/');
-  
+function backToHome() {
+  router.push("/");
 }
-
 </script>
 
 <template>
-<div class="page_header">
-  <div class="row">
-    <div class="col-3">
-      <img @click="backToHome" src="/digimetrica_logo.png" alt="logo_digimetrica">
-    </div>
-    <div class="col-6">
-      <span>Digimetrica Reports Tool</span>
-    </div>
-    <div class="col-3">
-      <a href="https://github.com/LoreWebDev24"><img class="logo_git" src="/github.png" alt=""></a>
+  <div class="page_header">
+    <div class="row">
+      <div class="col-3">
+        <img
+          @click="backToHome"
+          src="/digimetrica_logo.png"
+          alt="logo_digimetrica"
+        />
+      </div>
+      <div class="col-6 flex">
+        <span>Digimetrica Reports Tool</span>
+      </div>
+      <div class="col-3">
+        <a href="https://github.com/LoreWebDev24"
+          ><img class="logo_git" src="/github.png" alt=""
+        /></a>
+      </div>
     </div>
   </div>
-</div>
 </template>
 
 <style scoped>
+/* MEDIA QUERIES :  */
 
-/* MEDIA QUERIES :  */ 
-
-@media (max-width: 720px) {   
+@media (max-width: 720px) {
   div.col-6 {
     display: none;
     color: bisque;
@@ -43,7 +46,8 @@ function backToHome () {
 
 /* STILE DELL' HEADER  */
 
-.col-3, .col-6 {
+.col-3,
+.col-6 {
   display: flex;
   align-items: center;
 }
@@ -54,8 +58,8 @@ function backToHome () {
   max-width: 264px;
 }
 
-.col-3  {
-  justify-content: flex-start ;
+.col-3 {
+  justify-content: flex-start;
 }
 
 .col-3:last-child {
@@ -69,5 +73,4 @@ function backToHome () {
 .page_header .logo_git {
   width: 50px;
 }
-
 </style>

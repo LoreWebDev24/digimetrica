@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
+import { router } from '../router';
 import { defineProps } from "vue";
 import Chart from 'chart.js/auto'; 
 
@@ -173,9 +174,18 @@ function formattText(text) {
   return text;
 }
 
+// FUNZIONE PER ESSER REINDIRIZZATI ALLA HOME 
+
+function backToHome () {
+  router.push('/');
+}
+
 </script>
 
-<template>
+<template class="page">
+  <div @click="backToHome" class="back-home">
+    <img class="back-page-img" src="/show-more.png" alt="back-page-img">
+  </div>
   <div class="report-detail-section">
     <div class="container">
       <div class="row report_first_row">
@@ -421,9 +431,16 @@ function formattText(text) {
 @media (max-width: 900px) {
     h2 {
         font-size: 14px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     div.summary_wrapper {
-        justify-content: center;
+        justify-content: left;
+    }
+    div.summary_wrapper img {
+        width: 20px;
+        height: 20px;
     }
 }
 
@@ -462,6 +479,19 @@ function formattText(text) {
 @media (max-width: 643px) {
     canvas {
       max-width: 350px;
+    }
+}
+
+@media (max-width: 450px) {
+    div.col-6:last-child {
+      display: none;
+    }
+}
+
+@media (max-width: 412px) {
+    body {
+      overflow-x: auto;
+      max-width: 412px;
     }
 }
 

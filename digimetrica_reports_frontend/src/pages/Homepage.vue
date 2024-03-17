@@ -1,5 +1,6 @@
 <script setup>
-import { computed, ref, watch } from "vue";
+import axios from "axios";
+import { computed, ref, watch, onMounted } from "vue";
 import { reportSonarArray } from "../../storeManager.js";
 import { state } from "../../storeManager.js";
 import CardReport from "../components/CardReport.vue";
@@ -7,6 +8,7 @@ import SearchBar from "../components/SearchBar.vue";
 import { useRouter } from "vue-router";
 const router = useRouter();
 import ReportDetail from "./ReportDetail.vue";
+const arrayOfSonarResults = ref({});
 
 // VARIABILI REATTIVE PER IL FILTRAGGIO DEI REPORTS NEL DOM
 let highRiskReports = ref(false);
@@ -14,9 +16,9 @@ let spoofableEmails = ref(false);
 let cdnDetectedReports = ref(false);
 let domainsWithCritProblemsReports = ref(false);
 
-// DEFAULT SELECTED FILTER: 
+// DEFAULT SELECTED FILTER:
 
-const selectedOption = ref('default');
+const selectedOption = ref("default");
 
 // ARRAY DELLO STORE MANAGER CONTENENTE IL JSON CON TUTTI I REPORT DELLA SONDA :
 const originalReportSonarArray = reportSonarArray.results;
@@ -112,10 +114,14 @@ function showDomainsWithCritProblems() {
 // SORT BY LOGIC:
 
 const sortArray = () => {
-  if (selectedOption.value === 'ascending') {
-    reportSonarArray.results.sort((a, b) => new Date(a.creation_date) - new Date(b.creation_date));
-  } else if (selectedOption.value === 'descending') {
-    reportSonarArray.results.sort((a, b) => new Date(b.creation_date) - new Date(a.creation_date));
+  if (selectedOption.value === "ascending") {
+    reportSonarArray.results.sort(
+      (a, b) => new Date(a.creation_date) - new Date(b.creation_date)
+    );
+  } else if (selectedOption.value === "descending") {
+    reportSonarArray.results.sort(
+      (a, b) => new Date(b.creation_date) - new Date(a.creation_date)
+    );
   }
 };
 
@@ -125,20 +131,38 @@ function fetchReportDetail(report) {
   reportSonarArray.results = originalReportSonarArray;
   router.push({
     name: "ReportDetail",
-    params: { slug: encodeURIComponent(report.domain_name)},
+    params: { slug: encodeURIComponent(report.domain_name) },
   });
 }
 
+// COME OTTENERE IL SONAR ARRAY DA UNA CHIAMATA AXIOS CHE INTERROGA IL NOSTRO PROXY SERVER PER METTERLO IN UNA VARIABILE REATTIVA
+
+onMounted(async () => {
+  await axios
+    .get("http://localhost:4000/reportSonarArray")
+    .then((resp) => {
+      arrayOfSonarResults.value = resp.data;
+      console.log(arrayOfSonarResults.value);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
 </script>
 
 <template>
   <main>
     <div class="search_bar_and_sort_wrapper d-flex mw-400 m-auto">
       <SearchBar @on-search-change="handleSearchBarChange" />
-      <select v-model="selectedOption" @change="sortArray" name="sorting_select" id="sorting_select">
+      <select
+        v-model="selectedOption"
+        @change="sortArray"
+        name="sorting_select"
+        id="sorting_select"
+      >
         <option value="default">Sort By</option>
-        <option value="ascending">Oldest</option>
-        <option value="descending">Latest</option>
+        <option value="ascending">Oldest Created</option>
+        <option value="descending">Latest Created</option>
       </select>
     </div>
     <section class="sorting_system">

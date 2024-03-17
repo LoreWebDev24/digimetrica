@@ -26,7 +26,10 @@
       </div>
     </div>
     <div class="copyright_footer">
-        <span class="copy_span">Copyright 2001 - 2024 Digimetrica | All Rights Reserved | P.IVA IT01610670687</span>
+      <span class="copy_span"
+        >Copyright 2001 - 2024 Digimetrica | All Rights Reserved | P.IVA
+        IT01610670687</span
+      >
     </div>
   </footer>
 </template>
@@ -53,17 +56,17 @@
 }
 
 .copyright_footer {
-    height: 50px;
-    background-color: #1a2032;
-    font-size: 12px;
-    display: flex;
-    justify-content: center;
+  height: 50px;
+  background-color: #1a2032;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
 }
 
 .copy_span {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .container {
