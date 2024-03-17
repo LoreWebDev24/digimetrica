@@ -426,6 +426,10 @@ function backToHome () {
     .col-2{
         flex-basis: calc((100% / 12) * 3);
     }
+
+    strong.id_summary {
+        display: none;
+    }
 }
 
 @media (max-width: 900px) {
