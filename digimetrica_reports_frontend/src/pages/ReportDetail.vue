@@ -210,8 +210,8 @@ function backToHome () {
             {{ props.report[0].creation_date }}</span
           >
           <span class="domain_name"
-            ><strong>Domain Name </strong>
-            {{ props.report[0].domain_name }}</span
+            ><strong>Domain Name </strong><span>{{ props.report[0].domain_name }}</span>
+            </span
           >
           <span class="text-xs"
             ><strong class="id_summary">ID Summary </strong> {{ props.report[0].idsummary }}</span
@@ -476,13 +476,11 @@ function backToHome () {
         display: none;
     }
     canvas {
-      max-width: 400px;
-    }
-}
-
-@media (max-width: 643px) {
-    canvas {
       max-width: 350px;
+    }
+    .domain_name span:last-child {
+      font-size: 12px;
+      margin-left: 10px;
     }
 }
 
