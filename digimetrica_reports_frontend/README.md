@@ -2,6 +2,12 @@
 
 <h2>Link Diretto al Progetto hostato su una VPS : <a>http://213.199.38.16/</a> </h2>
 
+<h3>PER RUNNARE IL PROGETTO SCARICANDO LA REPO UNA VOLTA FATTO:
+    <h4>npm i</h4>
+    <h4>npm run dev</h4>
+    <h4>npm start (altra console)</h4>
+ </h3>
+
 <h2>Per il deploy ed il link della repo ho pensato anche di mandare una email riepilogativa alla fine del progetto (max 72 hr)</h2>
 
 <img src="https://i.imgur.com/7wibYGm.png">
