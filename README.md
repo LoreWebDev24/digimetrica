@@ -2,7 +2,7 @@
 
 <h2>Link Diretto al Progetto hostato su una VPS : <a href="http://www.lorejs.it/">http://www.lorejs.it/</a> </h2>
 
-<h3>PER RUNNARE IL PROGETTO SCARICANDO LA REPO UNA VOLTA FATTO:
+<h3>PER RUNNARE IL PROGETTO UNA VOLTA SCARICATA LA REPO:
     <h4>npm i</h4>
     <h4>npm run dev</h4>
     <h4>npm start (altra console)</h4>
