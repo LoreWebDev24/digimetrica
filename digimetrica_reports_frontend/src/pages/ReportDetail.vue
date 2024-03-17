@@ -16,7 +16,7 @@ let isClickedWafAndIpAddress = ref(false);
 const chartRef = ref(null);
 const chartRefTotalVulns = ref(null);
 
-// PRENDO LE PROPS DAL ROUTER OVVERO LO SLUG ED IL SINGOLO REPORT : 
+// PRENDO LE PROPS DAL ROUTER OVVERO LO SLUG ED IL SINGOLO REPORT IN QUESTO CASO L'OBJ. DEL REPORT E' CONTENUTO IN UN ARRAY : 
  
 const props = defineProps(["slug", "report"]);
 
@@ -80,9 +80,13 @@ const createChartTotalVulns = () => {
   });
 };
 
+// FUNZIONE PER TORNARE IN CIMA ALLA PAGINA 
+
 function scrollTop() {
   window.scrollTo(0, 0);
 } 
+
+// FUNZIONI PER ATTIVARE O DISATTIVARE I DROPDOWN: 
 
 function showPortsExposure() {
     isClickedPortsExposure.value = !isClickedPortsExposure.value;
@@ -99,6 +103,8 @@ function showWafAndIpAddress () {
 function showEmailInfo () {
     isClickedEmailInfos.value = !isClickedEmailInfos.value;
 }
+
+// ON MOUNTED: 
 
 onMounted(() => {
     createChart();
@@ -225,7 +231,7 @@ function formattText(text) {
           </div>
         </div>
       </div>
-      <div class="row scores_row mb-30">
+      <div class="row scores_row mb-30 wrap">
         <div class="vulnerability_wrapper">
           <h3>REPORT SCORES</h3>
         </div>
@@ -303,7 +309,7 @@ function formattText(text) {
       <div class="row summary_row">
         <div  class="col-10 summary_col">
             <div class="summary_wrapper">
-                <h2 @click="showSummary">See The Report Detailed Summary</h2>
+                <h2 @click="showSummary">Show The Report Detailed Summary</h2>
                 <img @click="showSummary" :class="isClickedReport ? 'turn' : ''" class="show-more" src="/show-more.png" alt="">
             </div>
             <p v-show="isClickedReport">
@@ -390,6 +396,79 @@ function formattText(text) {
 </template>
 
 <style scoped>
+/* MEDIA QUERIES :  */
+@media (max-width: 950px) {
+    div.row.report_first_row, strong.id_summary {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 932px) {
+    .row:not(div.row.report_first_row) {
+        flex-wrap: wrap;
+    }
+    .col-6 {
+      max-height: 300px;
+    }
+}
+
+@media (max-width: 915px) {
+    .col-2{
+        flex-basis: calc((100% / 12) * 3);
+    }
+}
+
+@media (max-width: 900px) {
+    h2 {
+        font-size: 14px;
+    }
+    div.summary_wrapper {
+        justify-content: center;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .col-5:first-child {
+        display: none;
+    }
+    div.container {
+      padding-top: 30px;
+    }
+    span.text-xs{
+      display: none;
+    }
+
+    div.row.report_first_row {
+        justify-content: center;
+    }
+    strong.risk_level_wrapper strong {
+        border-radius: 4px;
+    }
+}
+
+@media (max-width: 643px) {
+    .col-2{
+        flex-basis: calc((100% / 12) * 12);
+    }
+    div h3 {
+        display: none;
+    }
+    canvas {
+      max-width: 400px;
+    }
+}
+
+@media (max-width: 643px) {
+    canvas {
+      max-width: 350px;
+    }
+}
+
+/* END OF THE MEDIA QUERIES :  */
+
+/* STYLE SCOPED OF THE SINGLE REPORT PAGE  */
+
 .chart-container {
   height: 400px; 
   display: flex;
@@ -419,6 +498,8 @@ canvas {
   height: 100%;
   width: 100%;
   border-top-right-radius: 1rem;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
 }
 
 .col-5 {
@@ -470,6 +551,7 @@ span {
 
 .text-xs {
   font-size: 12px;
+  align-items: center;
 }
 
 .vulnerability_wrapper {
