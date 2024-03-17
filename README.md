@@ -1,6 +1,6 @@
 <h2>Ecco alcuni screen del progetto per i report della sonda di Digimetrica. L'Applicativo è stato realizzato con VUE JS in composition API, il piccolo proxyServer con JS (express), store manager, router js , axios e char.js per i grafici. Non mi sono avvalso di nessuna libreria di css (come bootsrap o il comodissimo tailwind). </h2>
 
-<h2>Link Diretto al Progetto hostato su una VPS : <a href="http://213.199.38.16/">http://213.199.38.16/</a> </h2>
+<h2>Link Diretto al Progetto hostato su una VPS : <a href="http://www.lorejs.it/">http://www.lorejs.it/</a> </h2>
 
 <h3>PER RUNNARE IL PROGETTO SCARICANDO LA REPO UNA VOLTA FATTO:
     <h4>npm i</h4>
